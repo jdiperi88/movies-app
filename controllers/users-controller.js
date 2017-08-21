@@ -25,5 +25,18 @@ usersController.create = (req, res) => {
   });
 }
 
+usersController.index = (req, res) => {
+  User.findUserMovies(req.user.id)
+    .then(movies => {
+        res.json({
+        user: req.user,
+        data: 'Put a user profile on this route',
+        movies: movies,
+      });
+    }).catch(err => {
+      console.log(err);
+      res.status(500).json({err: err});
+    });
+}
 
 module.exports = usersController;
